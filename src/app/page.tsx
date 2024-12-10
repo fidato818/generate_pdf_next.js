@@ -25,7 +25,7 @@ const Home = () => {
     ],
   });
 
-  const generateInvoice = (e: any) => {
+  const generateInvoice = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     const fetchData = async () => {
