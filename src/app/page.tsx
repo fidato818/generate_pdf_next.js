@@ -1,32 +1,35 @@
 "use client";
 import Head from "next/head";
-import React, { useLayoutEffect, useState } from "react";
+import React from "react";
 import styles from "./styles/Home.module.css";
-import axios from "axios";
-const Home = () => {
-  const [name, setName] = useState("Customer");
+import { useSetState } from "ahooks";
 
-  const [email, setEmail] = useState("Customer@gmail.com");
-  const [total, setTotal] = useState("4,50,000");
-  const [arr, setArr] = useState([
-    {
-      itemName: "Panadol",
-      itemQuantity: 1,
-      productPrice: 31.35,
-      totalItmPrc: 31.35,
-    },
-    {
-      itemName: "Panadol Extra",
-      itemQuantity: 2,
-      productPrice: 61.35,
-      totalItmPrc: 131.35,
-    },
-  ]);
-  console.log(arr);
+const Home = () => {
+  const [state, setState] = useSetState({
+    name: "Customer",
+    email: "Customer@gmail.com",
+    total: "4,50,000",
+    arr: [
+      {
+        itemName: "Panadol",
+        itemQuantity: 1,
+        productPrice: 31.35,
+        totalItmPrc: 31.35,
+      },
+      {
+        itemName: "Panadol Extra",
+        itemQuantity: 2,
+        productPrice: 61.35,
+        totalItmPrc: 131.35,
+      },
+    ],
+  });
+
   const generateInvoice = (e: any) => {
     e.preventDefault();
 
     const fetchData = async () => {
+      const { name, email, total, arr } = state;
       const data = await fetch("http://localhost:3000/api/generate-invoice", {
         method: "POST",
         body: JSON.stringify({ name, email, total, arr }),
@@ -55,7 +58,7 @@ const Home = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Hello {name} 👋</h1>
+        <h1 className={styles.title}>Hello {state.name} 👋</h1>
 
         <p className={styles.description}>
           Fill the form below to generate your invoice
@@ -67,8 +70,12 @@ const Home = () => {
             <input
               id="name"
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={state.name}
+              onChange={(e) =>
+                setState({
+                  name: e.target.value,
+                })
+              }
             />
           </div>
 
