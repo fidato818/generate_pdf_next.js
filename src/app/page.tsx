@@ -30,7 +30,8 @@ const Home = () => {
 
     const fetchData = async () => {
       const { name, email, total, arr } = state;
-      const data = await fetch("http://localhost:3000/api/generate-invoice", {
+      // const data = await fetch("http://localhost:3000/api/generate-invoice", {
+      const data = await fetch("https://generate-pdf-next-js.vercel.app/api/generate-invoice", {
         method: "POST",
         body: JSON.stringify({ name, email, total, arr }),
       });
