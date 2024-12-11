@@ -3,7 +3,7 @@ import Head from "next/head";
 import React from "react";
 import styles from "./styles/Home.module.css";
 import { useSetState } from "ahooks";
-
+import { BASE_API_URL } from "./constants/page";
 const Home = () => {
   const [state, setState] = useSetState({
     name: "Customer",
@@ -25,14 +25,14 @@ const Home = () => {
     ],
   });
 
-  const generateInvoice = (e: { preventDefault: () => void; }) => {
+  const generateInvoice = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const fetchData = async () => {
       const { name, email, total, arr } = state;
       // const data = await fetch("http://localhost:3000/api/generate-invoice", {
-      const data = await fetch("api/generate-invoice", {
-      // const data = await fetch("https://generate-pdf-next-js.vercel.app/api/generate-invoice", {
+      const data = await fetch(`${BASE_API_URL}/api/generate-invoice`, {
+        // const data = await fetch("https://generate-pdf-next-js.vercel.app/api/generate-invoice", {
         method: "POST",
         body: JSON.stringify({ name, email, total, arr }),
       });
