@@ -2,6 +2,7 @@
 import fs from "fs";
 import puppeteer from "puppeteer";
 import handlers from "handlebars";
+import { NextResponse } from "next/server";
 // import invoiceTemp from "../../../../invoice-template.html";
 export const GET = () => {
   return Response.json({ data: "hello world" });
@@ -50,8 +51,6 @@ export const GET = () => {
 //   }
 // };
 
-import { NextResponse } from "next/server";
-
 export const POST = async (request, res) => {
   const { name, email, total, arr } = await request.json();
   const capitalizeFirstLetter = (str) => {
@@ -79,6 +78,7 @@ export const POST = async (request, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: err.message });
+    NextResponse.json({ message: err.message }, { status: 500 });
+    // res.status(500).json({ message: err.message });
   }
 };

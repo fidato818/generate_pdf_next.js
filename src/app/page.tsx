@@ -37,6 +37,10 @@ const Home = () => {
         body: JSON.stringify({ name, email, total, arr }),
       });
 
+      if(!data.ok){
+        throw new Error('error while getting  tasks')
+      }
+
       return data.arrayBuffer();
     };
     const saveAsPDF = async () => {
