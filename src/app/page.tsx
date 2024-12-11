@@ -3,7 +3,7 @@ import Head from "next/head";
 import React from "react";
 import styles from "./styles/Home.module.css";
 import { useSetState } from "ahooks";
-import { BASE_API_URL } from "./constants/page";
+import { BASE_API_URL } from "./utils/constants";
 const Home = () => {
   const [state, setState] = useSetState({
     name: "Customer",
